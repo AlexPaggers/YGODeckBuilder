@@ -123,6 +123,7 @@
             this.buttonDeleteCreatedCard.TabIndex = 2;
             this.buttonDeleteCreatedCard.Text = "Remove Card from Collection";
             this.buttonDeleteCreatedCard.UseVisualStyleBackColor = true;
+            this.buttonDeleteCreatedCard.Click += new System.EventHandler(this.buttonDeleteCreatedCard_Click);
             // 
             // buttonCreateCard
             // 

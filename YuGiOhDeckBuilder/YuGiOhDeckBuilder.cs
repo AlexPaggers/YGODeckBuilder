@@ -47,6 +47,10 @@ namespace YuGiOhDeckBuilder
             if(listBoxCollection.SelectedItems.Count > 0)
             {
                 listBoxDeck.Items.Add((string)listBoxCollection.SelectedItem);
+                ICard selectedCard = Collection
+                    .Where(card => card.Name == (string)listBoxCollection.SelectedItem)
+                    .FirstOrDefault();
+                Deck.Add(selectedCard);
             }
             else
             {
@@ -137,16 +141,7 @@ namespace YuGiOhDeckBuilder
 
                 string filePath = directory.FullName + @"\Deck.csv";
 
-                CsvWriter csvWriter = new CsvWriter();
-
-                //Hook this list of cards to the names above. Probable best solution is to just
-                //Have the listviews show the name of a card and have a separate two lists for your deck and collection?
-
-                StreamWriter stream = new StreamWriter(filePath);
-                CardParser cardParser = new CardParser();
-                List<string> csvLines = cardParser.SerialiseCardsToCsv(Deck);
-
-                csvWriter.Write(stream, csvLines);              
+                SaveCardsToCsv(filePath, Deck);  
             }
             else
             {
@@ -176,6 +171,34 @@ namespace YuGiOhDeckBuilder
         private void buttonRefresh_Click(object sender, EventArgs e)
         {
             LoadCollection();
+        }
+
+        private void buttonDeleteCreatedCard_Click(object sender, EventArgs e)
+        {
+            if (listBoxCollection.SelectedItems.Count > 0)
+            {
+                foreach (var selectedCardIndex in listBoxCollection.SelectedIndices)
+                {
+                    Collection.RemoveAt((int)selectedCardIndex);
+                }
+
+                SaveCardsToCsv(collectionFileDirectory, Collection);
+                LoadCollection();
+            }
+            else
+            {
+                MessageBox.Show("Please select a card to remove from the collection.", "Error!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void SaveCardsToCsv(string filePath, List<ICard> cards)
+        {
+            CsvWriter csvWriter = new CsvWriter();
+            StreamWriter stream = new StreamWriter(filePath);
+            CardParser cardParser = new CardParser();
+            List<string> csvLines = cardParser.SerialiseCardsToCsv(cards);
+
+            csvWriter.Write(stream, csvLines);
         }
     }
 }

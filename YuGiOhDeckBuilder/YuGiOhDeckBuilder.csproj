@@ -57,8 +57,8 @@
     <Compile Include="CreateCardForm.Designer.cs">
       <DependentUpon>CreateCardForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="DeckWriter.cs" />
     <Compile Include="CardFactory.cs" />
+    <Compile Include="CsvWriter.cs" />
     <Compile Include="ICard.cs" />
     <Compile Include="ICardParser.cs" />
     <Compile Include="ICsvReader.cs" />
