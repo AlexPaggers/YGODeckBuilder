@@ -60,39 +60,17 @@ namespace YuGiOhDeckBuilder
 
         private void buttonRemoveFromDeck_Click(object sender, EventArgs e)
         {
-            if(listBoxDeck.SelectedItems.Count == 0)
+            if (listBoxDeck.SelectedItems.Count > 0)
             {
-                MessageBox.Show("Please select a card to remove from deck.", "Error!", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return;
+                Deck.RemoveAt((int)listBoxDeck.SelectedIndex);
+
+                listBoxDeck.Items.Clear();
+                listBoxDeck.Items.AddRange(Deck.Select(card => card.Name).ToArray());
             }
-
-            int index = 0;
-
-            //If the first item in the deck hasn't been selected            
-            if(listBoxDeck.SelectedIndex > 0)
+            else
             {
-                //save the index of the selected item
-                index = listBoxDeck.SelectedIndex;
+                MessageBox.Show("Please select a card to remove from the collection.", "Error!", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
-
-            //remove the selected item
-            listBoxDeck.Items.Remove(listBoxDeck.SelectedItem);
-
-            //Check the deck isn't empty
-            if(listBoxDeck.Items.Count > 0)
-            {
-                //Check that we didn't remove the first item
-                if (index > 0)
-                {
-                    //If so, select the item above the item we deleted
-                    listBoxDeck.SelectedIndex = index - 1;
-                }
-                else
-                {
-                    //Otherwise, select the new first item
-                    listBoxDeck.SelectedIndex = 0;
-                }
-            } 
         }
 
         private void buttonCreateCard_Click(object sender, EventArgs e)
