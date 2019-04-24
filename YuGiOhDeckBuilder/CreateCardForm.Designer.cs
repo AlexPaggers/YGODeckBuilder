@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.labelCardName = new System.Windows.Forms.Label();
             this.textBoxCardName = new System.Windows.Forms.TextBox();
             this.labelCardType = new System.Windows.Forms.Label();
@@ -42,7 +43,13 @@
             this.comboBoxAttribute = new System.Windows.Forms.ComboBox();
             this.textBoxDescription = new System.Windows.Forms.TextBox();
             this.numericUpDownLevel = new System.Windows.Forms.NumericUpDown();
+            this.comboBoxCardTypes = new System.Windows.Forms.ComboBox();
+            this.numericUpDownAtk = new System.Windows.Forms.NumericUpDown();
+            this.numericUpDownDef = new System.Windows.Forms.NumericUpDown();
+            this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownLevel)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownAtk)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownDef)).BeginInit();
             this.SuspendLayout();
             // 
             // labelCardName
@@ -112,7 +119,7 @@
             // labelLevel
             // 
             this.labelLevel.AutoSize = true;
-            this.labelLevel.Location = new System.Drawing.Point(49, 154);
+            this.labelLevel.Location = new System.Drawing.Point(49, 156);
             this.labelLevel.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.labelLevel.Name = "labelLevel";
             this.labelLevel.Size = new System.Drawing.Size(36, 13);
@@ -122,7 +129,7 @@
             // labelAtk
             // 
             this.labelAtk.AutoSize = true;
-            this.labelAtk.Location = new System.Drawing.Point(55, 190);
+            this.labelAtk.Location = new System.Drawing.Point(55, 204);
             this.labelAtk.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.labelAtk.Name = "labelAtk";
             this.labelAtk.Size = new System.Drawing.Size(31, 13);
@@ -132,7 +139,7 @@
             // labelDef
             // 
             this.labelDef.AutoSize = true;
-            this.labelDef.Location = new System.Drawing.Point(54, 210);
+            this.labelDef.Location = new System.Drawing.Point(54, 230);
             this.labelDef.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.labelDef.Name = "labelDef";
             this.labelDef.Size = new System.Drawing.Size(31, 13);
@@ -142,7 +149,7 @@
             // labelType
             // 
             this.labelType.AutoSize = true;
-            this.labelType.Location = new System.Drawing.Point(9, 172);
+            this.labelType.Location = new System.Drawing.Point(9, 179);
             this.labelType.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.labelType.Name = "labelType";
             this.labelType.Size = new System.Drawing.Size(79, 13);
@@ -161,7 +168,7 @@
             "WATER",
             "DIVINE"});
             this.comboBoxAttribute.Location = new System.Drawing.Point(88, 53);
-            this.comboBoxAttribute.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.comboBoxAttribute.Margin = new System.Windows.Forms.Padding(2);
             this.comboBoxAttribute.Name = "comboBoxAttribute";
             this.comboBoxAttribute.Size = new System.Drawing.Size(96, 21);
             this.comboBoxAttribute.TabIndex = 13;
@@ -169,7 +176,7 @@
             // textBoxDescription
             // 
             this.textBoxDescription.Location = new System.Drawing.Point(88, 74);
-            this.textBoxDescription.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.textBoxDescription.Margin = new System.Windows.Forms.Padding(2);
             this.textBoxDescription.Multiline = true;
             this.textBoxDescription.Name = "textBoxDescription";
             this.textBoxDescription.ScrollBars = System.Windows.Forms.ScrollBars.Horizontal;
@@ -179,7 +186,7 @@
             // numericUpDownLevel
             // 
             this.numericUpDownLevel.Location = new System.Drawing.Point(90, 153);
-            this.numericUpDownLevel.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.numericUpDownLevel.Margin = new System.Windows.Forms.Padding(2);
             this.numericUpDownLevel.Maximum = new decimal(new int[] {
             12,
             0,
@@ -199,11 +206,60 @@
             0,
             0});
             // 
+            // comboBoxCardTypes
+            // 
+            this.comboBoxCardTypes.FormattingEnabled = true;
+            this.comboBoxCardTypes.Location = new System.Drawing.Point(88, 175);
+            this.comboBoxCardTypes.Name = "comboBoxCardTypes";
+            this.comboBoxCardTypes.Size = new System.Drawing.Size(121, 21);
+            this.comboBoxCardTypes.TabIndex = 16;
+            // 
+            // numericUpDownAtk
+            // 
+            this.numericUpDownAtk.Increment = new decimal(new int[] {
+            100,
+            0,
+            0,
+            0});
+            this.numericUpDownAtk.Location = new System.Drawing.Point(88, 201);
+            this.numericUpDownAtk.Maximum = new decimal(new int[] {
+            10000,
+            0,
+            0,
+            0});
+            this.numericUpDownAtk.Name = "numericUpDownAtk";
+            this.numericUpDownAtk.Size = new System.Drawing.Size(62, 20);
+            this.numericUpDownAtk.TabIndex = 17;
+            // 
+            // numericUpDownDef
+            // 
+            this.numericUpDownDef.Increment = new decimal(new int[] {
+            100,
+            0,
+            0,
+            0});
+            this.numericUpDownDef.Location = new System.Drawing.Point(88, 227);
+            this.numericUpDownDef.Maximum = new decimal(new int[] {
+            10000,
+            0,
+            0,
+            0});
+            this.numericUpDownDef.Name = "numericUpDownDef";
+            this.numericUpDownDef.Size = new System.Drawing.Size(62, 20);
+            this.numericUpDownDef.TabIndex = 18;
+            // 
+            // contextMenuStrip1
+            // 
+            this.contextMenuStrip1.Name = "contextMenuStrip1";
+            // 
             // CreateCardForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(324, 378);
+            this.Controls.Add(this.numericUpDownDef);
+            this.Controls.Add(this.numericUpDownAtk);
+            this.Controls.Add(this.comboBoxCardTypes);
             this.Controls.Add(this.numericUpDownLevel);
             this.Controls.Add(this.textBoxDescription);
             this.Controls.Add(this.comboBoxAttribute);
@@ -224,6 +280,8 @@
             this.Text = "Create New Card";
             this.Load += new System.EventHandler(this.CreateCardForm_Load);
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownLevel)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownAtk)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownDef)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -245,5 +303,9 @@
         private System.Windows.Forms.ComboBox comboBoxAttribute;
         private System.Windows.Forms.TextBox textBoxDescription;
         private System.Windows.Forms.NumericUpDown numericUpDownLevel;
+        private System.Windows.Forms.ComboBox comboBoxCardTypes;
+        private System.Windows.Forms.NumericUpDown numericUpDownAtk;
+        private System.Windows.Forms.NumericUpDown numericUpDownDef;
+        private System.Windows.Forms.ContextMenuStrip contextMenuStrip1;
     }
 }
