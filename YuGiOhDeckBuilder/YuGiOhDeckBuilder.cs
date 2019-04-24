@@ -14,6 +14,8 @@ namespace YuGiOhDeckBuilder
 {
     public partial class YugiohDeckBuilderForm : Form
     {
+        private const string collectionFileDirectory = "..\\..\\Data\\Collection.csv";
+
         public List<ICard> Deck { get; set; }
         public List<ICard> Collection { get; set; }
 
@@ -24,15 +26,7 @@ namespace YuGiOhDeckBuilder
             Deck = new List<ICard>();
             Collection = new List<ICard>();
 
-            listBoxCollection.Items.Add("Summoned Skull");
-            listBoxCollection.Items.Add("Black Luster Soldier");
-            listBoxCollection.Items.Add("Mystical Space Typhoon");
-            listBoxCollection.Items.Add("Sangan");
-            listBoxCollection.Items.Add("Blue-Eyes Ultimate Dragon");
-            listBoxCollection.Items.Add("Torrential Tribute");
-            listBoxCollection.Items.Add("Odd-Eyes Pendulum Dragon");
-            listBoxCollection.Items.Add("Cyber Dragon Infinity");
-            listBoxCollection.Items.Add("Decode Talker");
+            LoadCollection();
         }
 
         private void buttonClearDeck_Click(object sender, EventArgs e)
@@ -125,8 +119,6 @@ namespace YuGiOhDeckBuilder
                     Deck.Add(card);
                     listBoxDeck.Items.Add(card.Name);
                 }
-
-                
             }
             else
             {
@@ -160,6 +152,30 @@ namespace YuGiOhDeckBuilder
             {
                 MessageBox.Show("Unable to export your deck to the specified location", "Error!", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
+        }
+
+        private void LoadCollection()
+        {
+            CsvReader reader = new CsvReader();
+            TextFieldParser parser = new TextFieldParser(collectionFileDirectory);
+            List<string> cardsAsCsv = reader.Read(parser);
+            CardFactory factory = new CardFactory();
+
+            listBoxCollection.Items.Clear();
+            Collection.Clear();
+
+            foreach (var csvCard in cardsAsCsv)
+            {
+                List<string> properties = csvCard.Split(',').ToList();
+                ICard card = factory.CreateFromCsv(properties);
+                Collection.Add(card);
+                listBoxCollection.Items.Add(card.Name);
+            }
+        }
+
+        private void buttonRefresh_Click(object sender, EventArgs e)
+        {
+            LoadCollection();
         }
     }
 }

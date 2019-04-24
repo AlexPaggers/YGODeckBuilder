@@ -39,6 +39,7 @@
             this.buttonCreateCard = new System.Windows.Forms.Button();
             this.buttonRemoveFromDeck = new System.Windows.Forms.Button();
             this.buttonAddToDeck = new System.Windows.Forms.Button();
+            this.buttonRefresh = new System.Windows.Forms.Button();
             this.groupBoxDeck.SuspendLayout();
             this.groupBoxCollection.SuspendLayout();
             this.SuspendLayout();
@@ -157,11 +158,22 @@
             this.buttonAddToDeck.UseVisualStyleBackColor = true;
             this.buttonAddToDeck.Click += new System.EventHandler(this.buttonAddToDeck_Click);
             // 
+            // buttonRefresh
+            // 
+            this.buttonRefresh.Location = new System.Drawing.Point(284, 33);
+            this.buttonRefresh.Name = "buttonRefresh";
+            this.buttonRefresh.Size = new System.Drawing.Size(54, 25);
+            this.buttonRefresh.TabIndex = 4;
+            this.buttonRefresh.Text = "Refresh";
+            this.buttonRefresh.UseVisualStyleBackColor = true;
+            this.buttonRefresh.Click += new System.EventHandler(this.buttonRefresh_Click);
+            // 
             // YugiohDeckBuilderForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(522, 570);
+            this.Controls.Add(this.buttonRefresh);
             this.Controls.Add(this.buttonAddToDeck);
             this.Controls.Add(this.buttonRemoveFromDeck);
             this.Controls.Add(this.groupBoxCollection);
@@ -187,6 +199,7 @@
         private System.Windows.Forms.Button buttonCreateCard;
         private System.Windows.Forms.ListBox listBoxDeck;
         private System.Windows.Forms.ListBox listBoxCollection;
+        private System.Windows.Forms.Button buttonRefresh;
     }
 }
 
