@@ -9,8 +9,10 @@ namespace YuGiOhDeckBuilder
     public interface ICard
     {
         string Name { get; set; }
-        string Rarity { get; set; }
-        string Serial { get; set; }
-        string CardText { get; set; }
+        string Attribute { get; set; }
+        string Type { get; set; }
+        string Level { get; set; }
+        string Attack { get; set; }
+        string Defense { get; set; }
     }
 }

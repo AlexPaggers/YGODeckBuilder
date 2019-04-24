@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.VisualBasic.FileIO;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -13,9 +14,16 @@ namespace YuGiOhDeckBuilder
 {
     public partial class YugiohDeckBuilderForm : Form
     {
+        public List<ICard> Deck { get; set; }
+        public List<ICard> Collection { get; set; }
+
         public YugiohDeckBuilderForm()
         {
             InitializeComponent();
+
+            Deck = new List<ICard>();
+            Collection = new List<ICard>();
+
             listBoxCollection.Items.Add("Summoned Skull");
             listBoxCollection.Items.Add("Black Luster Soldier");
             listBoxCollection.Items.Add("Mystical Space Typhoon");
@@ -102,7 +110,23 @@ namespace YuGiOhDeckBuilder
 
             if (openFileDialog.ShowDialog() == DialogResult.OK)
             {
-                //IMPORT IT USING TEXT FIELD PARSER FROM VB NET
+                CsvReader reader = new CsvReader();
+                TextFieldParser parser = new TextFieldParser(openFileDialog.FileName);
+                List<string> cardsAsCsv = reader.Read(parser);
+                CardFactory factory = new CardFactory();
+
+                listBoxDeck.Items.Clear();
+                Deck.Clear();
+
+                foreach (var csvCard in cardsAsCsv)
+                {
+                    List<string> properties = csvCard.Split(',').ToList();
+                    ICard card = factory.CreateFromCsv(properties);
+                    Deck.Add(card);
+                    listBoxDeck.Items.Add(card.Name);
+                }
+
+                
             }
             else
             {
@@ -121,20 +145,16 @@ namespace YuGiOhDeckBuilder
 
                 string filePath = directory.FullName + @"\Deck.csv";
 
-                DeckWriter deckWriter = new DeckWriter();
+                CsvWriter csvWriter = new CsvWriter();
 
                 //Hook this list of cards to the names above. Probable best solution is to just
                 //Have the listviews show the name of a card and have a separate two lists for your deck and collection?
 
-                List<MonsterCard> monsterCards = new List<MonsterCard>();
-                StreamWriter writer = new StreamWriter(filePath);
+                StreamWriter stream = new StreamWriter(filePath);
+                CardParser cardParser = new CardParser();
+                List<string> csvLines = cardParser.SerialiseCardsToCsv(Deck);
 
-                //foreach card in cards
-                for (int i = 0; i < 5; i++)
-                {
-                    //TODO get each card as a list of strings and pass them througgh
-                    deckWriter.Write(writer, new List<string>() { "1", "2", "3", "4", "5", "6" });
-                }
+                csvWriter.Write(stream, csvLines);              
             }
             else
             {

@@ -7,15 +7,15 @@ using System.Threading.Tasks;
 
 namespace YuGiOhDeckBuilder
 {
-    class DeckWriter : ICsvWriter
+    class CsvWriter : ICsvWriter
     {
-        public bool Write(StreamWriter stream, List<string> deck)
+        public bool Write(StreamWriter stream, List<string> lines)
         {
             using (stream)
             {
-                foreach (var property in deck)
+                foreach (var line in lines)
                 {
-                    stream.WriteLine(string.Join(",", property));
+                    stream.WriteLine(line);
                 }
             }
 

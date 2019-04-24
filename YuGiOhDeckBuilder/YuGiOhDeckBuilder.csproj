@@ -33,6 +33,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Microsoft.VisualBasic" />
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -46,6 +47,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Card.cs" />
+    <Compile Include="CardConstants.cs" />
+    <Compile Include="CardParser.cs" />
+    <Compile Include="CsvReader.cs" />
     <Compile Include="CreateCardForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -53,9 +58,12 @@
       <DependentUpon>CreateCardForm.cs</DependentUpon>
     </Compile>
     <Compile Include="DeckWriter.cs" />
+    <Compile Include="CardFactory.cs" />
     <Compile Include="ICard.cs" />
+    <Compile Include="ICardParser.cs" />
+    <Compile Include="ICsvReader.cs" />
     <Compile Include="ICsvWriter.cs" />
-    <Compile Include="NormalMonster.cs" />
+    <Compile Include="IFactory.cs" />
     <Compile Include="YuGiOhDeckBuilder.cs">
       <SubType>Form</SubType>
     </Compile>
