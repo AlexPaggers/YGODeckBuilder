@@ -50,6 +50,12 @@
     <Compile Include="Card.cs" />
     <Compile Include="CardConstants.cs" />
     <Compile Include="CardParser.cs" />
+    <Compile Include="ChooseDeckNameForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ChooseDeckNameForm.Designer.cs">
+      <DependentUpon>ChooseDeckNameForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="CsvReader.cs" />
     <Compile Include="CreateCardForm.cs">
       <SubType>Form</SubType>
@@ -72,6 +78,9 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="ChooseDeckNameForm.resx">
+      <DependentUpon>ChooseDeckNameForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="CreateCardForm.resx">
       <DependentUpon>CreateCardForm.cs</DependentUpon>
     </EmbeddedResource>

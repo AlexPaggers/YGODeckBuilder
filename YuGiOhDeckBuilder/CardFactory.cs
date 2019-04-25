@@ -20,5 +20,24 @@ namespace YuGiOhDeckBuilder
                 Defense = properties[CardConstants.Def]
             };
         }
+
+        public ICard CreateFromParameters(
+            string name,
+            string attribute,
+            string type,
+            string level,
+            string atk,
+            string def)
+        {
+            return new Card
+            {
+                Name = name,
+                Attribute = attribute,
+                Type = type,
+                Level = level,
+                Attack = atk,
+                Defense = def
+            };
+        }
     }
 }

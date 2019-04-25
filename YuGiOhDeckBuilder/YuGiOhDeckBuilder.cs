@@ -17,14 +17,14 @@ namespace YuGiOhDeckBuilder
         private const string collectionFileDirectory = "..\\..\\Data\\Collection.csv";
 
         public List<ICard> Deck { get; set; }
-        public List<ICard> Collection { get; set; }
+        public List<ICard> CardCollection { get; set; }
 
         public YugiohDeckBuilderForm()
         {
             InitializeComponent();
 
             Deck = new List<ICard>();
-            Collection = new List<ICard>();
+            CardCollection = new List<ICard>();
 
             LoadCollection();
         }
@@ -47,7 +47,7 @@ namespace YuGiOhDeckBuilder
             if(listBoxCollection.SelectedItems.Count > 0)
             {
                 listBoxDeck.Items.Add((string)listBoxCollection.SelectedItem);
-                ICard selectedCard = Collection
+                ICard selectedCard = CardCollection
                     .Where(card => card.Name == (string)listBoxCollection.SelectedItem)
                     .FirstOrDefault();
                 Deck.Add(selectedCard);
@@ -76,7 +76,20 @@ namespace YuGiOhDeckBuilder
         private void buttonCreateCard_Click(object sender, EventArgs e)
         {
             CreateCardForm createCardForm = new CreateCardForm();
-            createCardForm.ShowDialog();
+            if(createCardForm.ShowDialog() == DialogResult.OK)
+            {
+                if(createCardForm.CreatedCard != null)
+                {
+                    CardCollection.Add(createCardForm.CreatedCard);
+                    SaveCardsToCsv(collectionFileDirectory, CardCollection);
+                    listBoxCollection.Items.Add(createCardForm.CreatedCard.Name);
+                }
+                else
+                {
+                    MessageBox.Show("Unable to add card to collection. Please try again.", "Error!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+
         }
 
         private void buttonImportDeck_Click(object sender, EventArgs e)
@@ -110,20 +123,27 @@ namespace YuGiOhDeckBuilder
 
         private void buttonSaveDeck_Click(object sender, EventArgs e)
         {
-            FolderBrowserDialog folderBrowserDialog = new FolderBrowserDialog();
-            
-            if(folderBrowserDialog.ShowDialog() == DialogResult.OK)
-            {
-                //TODO add another dialogue box to choose a deck name
-                DirectoryInfo directory = new DirectoryInfo(folderBrowserDialog.SelectedPath);
+            ChooseDeckNameForm newDeckForm = new ChooseDeckNameForm();
 
-                string filePath = directory.FullName + @"\Deck.csv";
-
-                SaveCardsToCsv(filePath, Deck);  
-            }
-            else
+            if(newDeckForm.ShowDialog() == DialogResult.OK)
             {
-                MessageBox.Show("Unable to export your deck to the specified location", "Error!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                string deckName = newDeckForm.DeckName;
+
+                FolderBrowserDialog folderBrowserDialog = new FolderBrowserDialog();
+
+                if (folderBrowserDialog.ShowDialog() == DialogResult.OK)
+                {
+                    //TODO add another dialogue box to choose a deck name
+                    DirectoryInfo directory = new DirectoryInfo(folderBrowserDialog.SelectedPath);
+
+                    string filePath = directory.FullName + @"\" + deckName + ".csv";
+
+                    SaveCardsToCsv(filePath, Deck);
+                }
+                else
+                {
+                    MessageBox.Show("Unable to export your deck to the specified location", "Error!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
             }
         }
 
@@ -135,13 +155,13 @@ namespace YuGiOhDeckBuilder
             CardFactory factory = new CardFactory();
 
             listBoxCollection.Items.Clear();
-            Collection.Clear();
+            CardCollection.Clear();
 
             foreach (var csvCard in cardsAsCsv)
             {
                 List<string> properties = csvCard.Split(',').ToList();
                 ICard card = factory.CreateFromCsv(properties);
-                Collection.Add(card);
+                CardCollection.Add(card);
                 listBoxCollection.Items.Add(card.Name);
             }
         }
@@ -157,10 +177,10 @@ namespace YuGiOhDeckBuilder
             {
                 foreach (var selectedCardIndex in listBoxCollection.SelectedIndices)
                 {
-                    Collection.RemoveAt((int)selectedCardIndex);
+                    CardCollection.RemoveAt((int)selectedCardIndex);
                 }
 
-                SaveCardsToCsv(collectionFileDirectory, Collection);
+                SaveCardsToCsv(collectionFileDirectory, CardCollection);
                 LoadCollection();
             }
             else

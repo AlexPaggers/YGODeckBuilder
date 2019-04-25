@@ -16,6 +16,8 @@ namespace YuGiOhDeckBuilder
         private string[] SpellTypes = { "Normal", "Field", "Quick-Play", "Equip", "Continuous" };
         private string[] TrapTypes = { "Normal", "Continuous", "Counter" };
 
+        public ICard CreatedCard { get; private set; }
+
         public CreateCardForm()
         {
             InitializeComponent();
@@ -112,7 +114,17 @@ namespace YuGiOhDeckBuilder
 
         private void buttonCreateCard_Click(object sender, EventArgs e)
         {
-            //Create card
+            CardFactory cardFactory = new CardFactory();
+            CreatedCard = cardFactory.CreateFromParameters(
+                textBoxCardName.Text,
+                comboBoxAttribute.Text,
+                comboBoxCardTypes.Text,
+                numericUpDownLevel.Value.ToString(),
+                numericUpDownAtk.Value.ToString(),
+                numericUpDownDef.Value.ToString());
+
+            this.DialogResult = DialogResult.OK;
+            this.Close();
         }
     }
 }
